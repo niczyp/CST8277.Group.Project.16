@@ -11,7 +11,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @SuppressWarnings("unused")
 
@@ -20,13 +27,21 @@ import jakarta.persistence.Embedded;
  */
 //TODO MT01 - Add the missing annotations.
 //TODO MT02 - Do we need a mapped super class?  If so, which one?
+// Yes... we need a mapped superclass, and PojoBase already extends Serializable and provides primary key fields (id, created, updated)
+@Entity
+@Table(name = "medical_training")
 public class MedicalTraining extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// TODO MT03 - Add annotations for M:1.  What should be the cascade and fetch types?
+	// optional = false because every medical training must be associated with a school.
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "school_id", referencedColumnName = "school_id", nullable = false)
 	private MedicalSchool school;
 
 	// TODO MT04 - Add annotations for 1:1.  What should be the cascade and fetch types?
+	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "training_id", referencedColumnName = "certificate_id", nullable = false)
 	private MedicalCertificate certificate;
 
 	@Embedded
