@@ -31,11 +31,11 @@ public class Patient extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// TODO PA03 - Add missing annotations.
-	@Column(name = "first_name", nullable = false)
+	@Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
 
 	// TODO PA04 - Add missing annotations.
-	@Column(name = "last_name", nullable = false)
+	@Column(name = "last_name", nullable = false, length = 50)
 	private String lastName;
 
 	// TODO PA05 - Add missing annotations.
@@ -43,7 +43,7 @@ public class Patient extends PojoBase implements Serializable {
 	private int year;
 
 	// TODO PA06 - Add missing annotations.
-	@Column(name = "home_address")
+	@Column(name = "home_address", length = 100)
 	private String address;
 
 	// TODO PA07 - Add missing annotations.

@@ -34,11 +34,11 @@ public class Physician extends PojoBase implements Serializable {
     }
 
 	// TODO PH03 - Add annotations.
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
 
 	// TODO PH04 - Add annotations.
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name", nullable = false, length = 50)
 	private String lastName;
 
 	// TODO PH05 - Add annotations for 1:M relation.  What should be the cascade and fetch types?
