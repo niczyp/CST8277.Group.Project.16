@@ -45,12 +45,7 @@ public class SecurityRole implements Serializable {
     protected String roleName;
     
     //TODO SR04 - Add annotations.
-    @ManyToMany
-    @JoinTable(
-    		name = "user_has_role",
-    		joinColumns = @JoinColumn(name = "user_id"),
-    		inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+    @ManyToMany(mappedBy = "user_has_role")
     protected Set<SecurityUser> users = new HashSet<SecurityUser>();
 
     public SecurityRole() {
