@@ -41,7 +41,7 @@ public class MedicalCertificate extends PojoBase implements Serializable {
 	private Physician owner;
 
 	// TODO MC05 - Add annotations.
-	@Column(name = "active", nullable = false)
+	@Column(name = "signed", nullable = false)
 	private byte signed;
 
 	public MedicalCertificate() {

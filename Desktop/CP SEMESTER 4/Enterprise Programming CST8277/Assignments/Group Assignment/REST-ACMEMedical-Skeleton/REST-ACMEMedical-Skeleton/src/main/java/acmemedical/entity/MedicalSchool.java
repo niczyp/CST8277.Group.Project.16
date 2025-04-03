@@ -36,7 +36,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "medical_school")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@JsonTypeInfo( use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = PublicSchool.class, name = "public"), @JsonSubTypes.Type(value = PrivateSchool.class, name = "private")})
 public abstract class MedicalSchool extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
