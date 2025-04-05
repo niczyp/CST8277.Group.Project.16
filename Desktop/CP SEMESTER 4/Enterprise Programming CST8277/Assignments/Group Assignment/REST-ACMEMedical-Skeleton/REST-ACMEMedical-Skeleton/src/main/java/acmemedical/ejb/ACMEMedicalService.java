@@ -76,10 +76,7 @@ public class ACMEMedicalService implements Serializable {
     protected Pbkdf2PasswordHash pbAndjPasswordHash;
 
     public List<Physician> getAllPhysicians() {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Physician> cq = cb.createQuery(Physician.class);
-        cq.select(cq.from(Physician.class));
-        return em.createQuery(cq).getResultList();
+    	return getAll(Physician.class, ALL_PHYSICIANS_QUERY_NAME);
     }
 
     public Physician getPhysicianById(int id) {
@@ -181,10 +178,7 @@ public class ACMEMedicalService implements Serializable {
     }
     
     public List<MedicalSchool> getAllMedicalSchools() {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<MedicalSchool> cq = cb.createQuery(MedicalSchool.class);
-        cq.select(cq.from(MedicalSchool.class));
-        return em.createQuery(cq).getResultList();
+    	return getAll(MedicalSchool.class, ALL_MEDICAL_SCHOOLS_QUERY_NAME);
     }
 
     // Why not use the build-in em.find?  The named query SPECIFIC_MEDICAL_SCHOOL_QUERY_NAME
