@@ -19,6 +19,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -33,8 +34,14 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "medical_training")
 @AttributeOverride(name = "id", column = @Column(name = "training_id"))
+@NamedQuery(
+	    name = "MedicalTraining.findById",
+	    query = "SELECT mt FROM MedicalTraining mt WHERE mt.id = :param1"
+	)
 public class MedicalTraining extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String FIND_BY_ID = "MedicalTraining.findById";
 	
 	// TODO MT03 - Add annotations for M:1.  What should be the cascade and fetch types?
 	// optional = false because every medical training must be associated with a school.

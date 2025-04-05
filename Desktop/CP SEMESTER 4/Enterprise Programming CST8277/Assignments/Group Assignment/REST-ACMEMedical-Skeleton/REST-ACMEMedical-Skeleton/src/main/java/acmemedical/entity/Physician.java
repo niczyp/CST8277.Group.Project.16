@@ -15,6 +15,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -27,10 +28,16 @@ import jakarta.persistence.Table;
 //TODO PH02 - Do we need a mapped super class? If so, which one? Yes... we need a mapped superclass, and PojoBase already extends Serializable and provides primary key fields (id, created, updated)
 @Entity
 @Table(name = "physician")
+@NamedQuery(
+	    name = "Physician.findAll",
+	    query = "SELECT p FROM Physician p"
+	)
 public class Physician extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-    public Physician() {
+	public static final String ALL_PHYSICIANS_QUERY_NAME = "Physician.findAll";
+
+	public Physician() {
     	super();
     }
 
