@@ -22,6 +22,7 @@ import jakarta.ejb.EJB;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.SecurityContext;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -114,6 +115,28 @@ public class PhysicianResource {
         Medicine medicine = service.setMedicineForPhysicianPatient(physicianId, patientId, newMedicine);
         response = Response.ok(medicine).build();
         return response;
+    }
+    
+    @PUT
+    @Path(RESOURCE_PATH_ID_PATH)
+    @RolesAllowed({ADMIN_ROLE})
+    public Response updatePhysician(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id, Physician updatedPhysician) {
+        LOG.debug("Updating physician with ID {}", id);
+        Physician result = service.updatePhysicianById(id, updatedPhysician);
+        if (result != null) {
+            return Response.ok(result).build();
+        } else {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+    }
+    
+    @DELETE
+    @Path(RESOURCE_PATH_ID_PATH)
+    @RolesAllowed({ADMIN_ROLE})
+    public Response deletePhysician(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
+        LOG.debug("Deleting physician with ID {}", id);
+        service.deletePhysicianById(id);
+        return Response.noContent().build();
     }
     
 }
