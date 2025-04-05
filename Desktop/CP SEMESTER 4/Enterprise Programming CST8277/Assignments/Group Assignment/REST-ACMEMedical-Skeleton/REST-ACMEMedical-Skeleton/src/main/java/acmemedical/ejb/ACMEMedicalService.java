@@ -366,4 +366,33 @@ public class ACMEMedicalService implements Serializable {
         return null;
     }
     
+    @Transactional
+    public MedicalCertificate persistMedicalCertificate(MedicalCertificate cert) {
+        em.persist(cert);
+        return cert;
+    }
+    
+    @Transactional
+    public MedicalCertificate updateMedicalCertificate(int id, MedicalCertificate updatedCert) {
+        MedicalCertificate existing = em.find(MedicalCertificate.class, id);
+        if (existing != null) {
+            em.refresh(existing);
+            updatedCert.setId(id);
+            em.merge(updatedCert);
+            em.flush();
+            return updatedCert;
+        }
+        return null;
+    }
+    
+    @Transactional
+    public MedicalCertificate deleteMedicalCertificate(int id) {
+        MedicalCertificate cert = em.find(MedicalCertificate.class, id);
+        if (cert != null) {
+            em.remove(cert);
+            return cert;
+        }
+        return null;
+    }
+    
 }
