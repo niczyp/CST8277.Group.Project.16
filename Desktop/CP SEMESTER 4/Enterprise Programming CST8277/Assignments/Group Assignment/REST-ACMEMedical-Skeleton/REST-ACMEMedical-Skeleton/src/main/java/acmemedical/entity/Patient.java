@@ -16,6 +16,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -30,6 +32,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "patient")
 @AttributeOverride(name = "id", column = @Column(name = "patient_id"))
+@NamedQueries({
+    @NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p"),
+    @NamedQuery(name = "Patient.findById", query = "SELECT p FROM Patient p WHERE p.id = :param1")
+})
 public class Patient extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
