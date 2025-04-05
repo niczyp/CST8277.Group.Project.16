@@ -2,7 +2,7 @@
  * File:  PatientResource.java
  * Course Materials CST 8277
  *
- * @author Nicholas :)
+ * @author Nicholas Zypchen
  * 
  */
 package acmemedical.rest.resource;

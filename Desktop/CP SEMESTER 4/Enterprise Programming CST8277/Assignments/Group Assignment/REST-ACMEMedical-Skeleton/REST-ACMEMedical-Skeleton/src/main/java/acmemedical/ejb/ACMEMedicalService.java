@@ -279,4 +279,33 @@ public class ACMEMedicalService implements Serializable {
         return medicalTrainingToBeUpdated;
     }
     
+    @Transactional
+    public Patient persistPatient(Patient newPatient) {
+        em.persist(newPatient);
+        return newPatient;
+    }
+    
+    @Transactional
+    public Patient updatePatient(int id, Patient updatedPatient) {
+        Patient existingPatient = em.find(Patient.class, id);
+        if (existingPatient != null) {
+            em.refresh(existingPatient);
+            updatedPatient.setId(id); // Important: ensure the ID matches
+            em.merge(updatedPatient);
+            em.flush();
+            return updatedPatient;
+        }
+        return null;
+    }
+    
+    @Transactional
+    public Patient deletePatient(int id) {
+        Patient patient = em.find(Patient.class, id);
+        if (patient != null) {
+            em.remove(patient);
+            return patient;
+        }
+        return null;
+    }
+    
 }
