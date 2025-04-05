@@ -337,4 +337,37 @@ public class ACMEMedicalService implements Serializable {
         return null;
     }
     
+    public Prescription getPrescriptionByPK(PrescriptionPK pk) {
+        return em.find(Prescription.class, pk);
+    }
+    
+    @Transactional
+    public Prescription persistPrescription(Prescription newPrescription) {
+        em.persist(newPrescription);
+        return newPrescription;
+    }
+    
+    @Transactional
+    public Prescription updatePrescription(PrescriptionPK pk, Prescription updatedPrescription) {
+        Prescription existing = getPrescriptionByPK(pk);
+        if (existing != null) {
+            em.refresh(existing);
+            updatedPrescription.setId(pk); // must explicitly set the PK
+            em.merge(updatedPrescription);
+            em.flush();
+            return updatedPrescription;
+        }
+        return null;
+    }
+    
+    @Transactional
+    public Prescription deletePrescription(PrescriptionPK pk) {
+        Prescription toDelete = getPrescriptionByPK(pk);
+        if (toDelete != null) {
+            em.remove(toDelete);
+            return toDelete;
+        }
+        return null;
+    }
+    
 }
