@@ -51,6 +51,7 @@ public interface MyConstants {
     public static final String RESOURCE_PATH_PHYSICIAN_ID_PATH =  "/{" + PHYSICIAN_ID_RESOURCE_NAME + "}";
     public static final String TRAINING_ID_RESOURCE_NAME = "training_id";
     public static final String RESOURCE_PATH_TRAINING_ID_PATH =  "/{" + TRAINING_ID_RESOURCE_NAME + "}";
+    public static final String MEDICAL_TRAINING_SUBRESOURCE_PATH = RESOURCE_PATH_SCHOOL_ID_PATH + "/medicaltraining";
     
     //REST constants for peertutor 
     public static final String MEDICINE_RESOURCE_NAME =  "medicine";
