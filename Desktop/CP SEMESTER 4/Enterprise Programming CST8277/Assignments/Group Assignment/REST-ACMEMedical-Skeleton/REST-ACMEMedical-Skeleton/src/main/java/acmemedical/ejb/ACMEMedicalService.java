@@ -308,4 +308,33 @@ public class ACMEMedicalService implements Serializable {
         return null;
     }
     
+    @Transactional
+    public Medicine persistMedicine(Medicine newMed) {
+        em.persist(newMed);
+        return newMed;
+    }
+    
+    @Transactional
+    public Medicine updateMedicine(int id, Medicine updatedMed) {
+        Medicine existingMed = em.find(Medicine.class, id);
+        if (existingMed != null) {
+            em.refresh(existingMed);
+            updatedMed.setId(id); // ensure ID is correctly set
+            em.merge(updatedMed);
+            em.flush();
+            return updatedMed;
+        }
+        return null;
+    }
+    
+    @Transactional
+    public Medicine deleteMedicine(int id) {
+        Medicine med = em.find(Medicine.class, id);
+        if (med != null) {
+            em.remove(med);
+            return med;
+        }
+        return null;
+    }
+    
 }
