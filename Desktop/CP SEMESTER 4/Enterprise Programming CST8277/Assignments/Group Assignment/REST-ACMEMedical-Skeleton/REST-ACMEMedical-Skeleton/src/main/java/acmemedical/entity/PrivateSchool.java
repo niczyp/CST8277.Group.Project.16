@@ -20,7 +20,7 @@ public class PrivateSchool extends MedicalSchool implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public PrivateSchool() {
-		super(false);
+		super(false); // sets isPublic = false
 
 	}
 }

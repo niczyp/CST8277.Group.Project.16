@@ -14,6 +14,8 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +37,7 @@ import jakarta.persistence.Table;
 //TODO MS04 - Add in JSON annotations to indicate different sub-classes of MedicalSchool
 @Entity
 @Table(name = "medical_school")
+@AttributeOverride(name = "id", column = @Column(name = "school_id"))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = PublicSchool.class, name = "public"), @JsonSubTypes.Type(value = PrivateSchool.class, name = "private")})
@@ -42,6 +45,7 @@ public abstract class MedicalSchool extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// TODO MS05 - Add the missing annotations.
+	@Basic(optional = false)
 	@Column(name = "name", nullable = false, length = 100)
 	private String name;
 
@@ -50,7 +54,8 @@ public abstract class MedicalSchool extends PojoBase implements Serializable {
 	private Set<MedicalTraining> medicalTrainings = new HashSet<>();
 
 	// TODO MS07 - Add missing annotation.
-	@Column(name = "public")
+	@Basic(optional = false)
+	@Column(name = "public", nullable = false)
 	private boolean isPublic;
 
 	public MedicalSchool() {

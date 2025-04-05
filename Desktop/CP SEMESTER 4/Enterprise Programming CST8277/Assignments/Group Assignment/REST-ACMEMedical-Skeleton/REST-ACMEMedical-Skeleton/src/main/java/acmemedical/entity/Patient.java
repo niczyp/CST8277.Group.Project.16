@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,35 +29,43 @@ import jakarta.persistence.Table;
 // Yes... we need a mapped superclass, and PojoBase already extends Serializable and provides the primary key and fields (id, created, updated)
 @Entity
 @Table(name = "patient")
+@AttributeOverride(name = "id", column = @Column(name = "patient_id"))
 public class Patient extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// TODO PA03 - Add missing annotations.
+	@Basic(optional = false)
 	@Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
 
 	// TODO PA04 - Add missing annotations.
+	@Basic(optional = false)
 	@Column(name = "last_name", nullable = false, length = 50)
 	private String lastName;
 
 	// TODO PA05 - Add missing annotations.
+	@Basic(optional = false)
 	@Column(name = "year_of_birth", nullable = false)
 	private int year;
 
 	// TODO PA06 - Add missing annotations.
-	@Column(name = "home_address", length = 100)
+	@Basic(optional = false)
+	@Column(name = "home_address", nullable = false, length = 100)
 	private String address;
 
 	// TODO PA07 - Add missing annotations.
+	@Basic(optional = false)
 	@Column(name = "height_cm", nullable = false)
 	private int height;
 
 	// TODO PA08 - Add missing annotations.
+	@Basic(optional = false)
 	@Column(name = "weight_kg", nullable = false)
 	private int weight;
 
 	// TODO PA09 - Add missing annotations.
-	@Column(name = "smoker")
+	@Basic(optional = false)
+	@Column(name = "smoker", nullable = false)
 	private byte smoker;
 
 	// TODO PA10 - Add annotations for 1:M relation.  What should be the cascade and fetch types?

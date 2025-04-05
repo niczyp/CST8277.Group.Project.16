@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,10 +35,12 @@ public class Physician extends PojoBase implements Serializable {
     }
 
 	// TODO PH03 - Add annotations.
+    @Basic(optional = false)
     @Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
 
 	// TODO PH04 - Add annotations.
+    @Basic(optional = false)
     @Column(name = "last_name", nullable = false, length = 50)
 	private String lastName;
 

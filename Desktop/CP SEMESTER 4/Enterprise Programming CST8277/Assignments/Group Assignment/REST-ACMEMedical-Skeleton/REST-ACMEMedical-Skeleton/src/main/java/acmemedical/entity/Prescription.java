@@ -55,10 +55,12 @@ public class Prescription extends PojoBaseCompositeKey<PrescriptionPK> implement
 	@JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id", nullable = true)
 	private Medicine medicine;
 
-	@Column(name = "number_of_refills")
+	@Basic(optional = false)
+	@Column(name = "number_of_refills", nullable = false)
 	private int numberOfRefills;
 
-	@Column(length = 100, name = "prescription_information")
+	@Basic(optional = false)
+	@Column(length = 100, name = "prescription_information", nullable = false)
 	private String prescriptionInformation;
 
 

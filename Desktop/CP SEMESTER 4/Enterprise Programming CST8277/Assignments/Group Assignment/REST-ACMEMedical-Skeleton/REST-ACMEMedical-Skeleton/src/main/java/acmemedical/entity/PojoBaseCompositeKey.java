@@ -13,6 +13,7 @@ import java.util.Objects;
 
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -38,6 +39,7 @@ public abstract class PojoBaseCompositeKey<ID extends Serializable> implements S
 	protected int version;
 
 	// TODO PC05 - Add missing annotations (hint, is this column on DB?).
+	@Basic(optional = false)
 	@Column(name = "created", updatable = false)
 	protected LocalDateTime created;
 

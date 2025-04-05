@@ -11,7 +11,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,6 +32,7 @@ import jakarta.persistence.Table;
 // Yes... we need a mapped superclass, and PojoBase already extends Serializable and provides primary key fields (id, created, updated)
 @Entity
 @Table(name = "medical_training")
+@AttributeOverride(name = "id", column = @Column(name = "training_id"))
 public class MedicalTraining extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -41,7 +44,7 @@ public class MedicalTraining extends PojoBase implements Serializable {
 
 	// TODO MT04 - Add annotations for 1:1.  What should be the cascade and fetch types?
 	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "training_id", referencedColumnName = "certificate_id", nullable = false)
+	@JoinColumn(name = "training_id", referencedColumnName = "training_id", nullable = false)
 	private MedicalCertificate certificate;
 
 	@Embedded

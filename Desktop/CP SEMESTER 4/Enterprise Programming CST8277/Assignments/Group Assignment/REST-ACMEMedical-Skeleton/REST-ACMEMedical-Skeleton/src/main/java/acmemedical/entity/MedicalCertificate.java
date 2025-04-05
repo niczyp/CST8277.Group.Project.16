@@ -8,6 +8,10 @@ package acmemedical.entity;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,12 +31,14 @@ import jakarta.persistence.Table;
 // PojoBase provides common fields, and MedicalCertificate inherits them.
 @Entity
 @Table(name = "medical_certificate")
+@Access(AccessType.FIELD)
+@AttributeOverride(name = "id", column = @Column(name = "certificate_id"))
 public class MedicalCertificate extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// TODO MC03 - Add annotations for 1:1 mapping.  What should be the cascade and fetch types?
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
-	@JoinColumn(name = "certificate_id", referencedColumnName = "training_id", nullable = true)
+	@JoinColumn(name = "training_id", referencedColumnName = "training_id", nullable = true)
 	private MedicalTraining medicalTraining;
 
 	// TODO MC04 - Add annotations for M:1 mapping.  What should be the cascade and fetch types?
@@ -41,6 +47,7 @@ public class MedicalCertificate extends PojoBase implements Serializable {
 	private Physician owner;
 
 	// TODO MC05 - Add annotations.
+	@Basic(optional = false)
 	@Column(name = "signed", nullable = false)
 	private byte signed;
 
