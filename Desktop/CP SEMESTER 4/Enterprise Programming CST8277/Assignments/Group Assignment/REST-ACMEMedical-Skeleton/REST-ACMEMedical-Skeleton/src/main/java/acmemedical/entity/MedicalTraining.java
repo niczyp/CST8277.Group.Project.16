@@ -38,11 +38,17 @@ import jakarta.persistence.Table;
 	    name = "MedicalTraining.findById",
 	    query = "SELECT mt FROM MedicalTraining mt WHERE mt.id = :param1"
 	)
+@NamedQuery(
+		name = "MedicalTraining.findAll", 
+		query = "SELECT mt FROM MedicalTraining mt"
+	)
+
 public class MedicalTraining extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public static final String FIND_BY_ID = "MedicalTraining.findById";
-	
+	public static final String ALL_TRAINING_QUERY_NAME = "MedicalTraining.findAll";
+
 	// TODO MT03 - Add annotations for M:1.  What should be the cascade and fetch types?
 	// optional = false because every medical training must be associated with a school.
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, optional = false, fetch = FetchType.LAZY)
