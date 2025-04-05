@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("unused")
@@ -30,6 +32,7 @@ import jakarta.persistence.Table;
 //TODO SR01 - Make this into JPA entity and add all necessary annotations inside the class.
 @Entity
 @Table(name = "security_role")
+@NamedQuery(name = "SecurityRole.findByRole", query = "SELECT s FROM SecurityRole s WHERE s.roleName = :roleName")
 public class SecurityRole implements Serializable {
     /** Explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -41,11 +44,12 @@ public class SecurityRole implements Serializable {
     protected int id;
     
     //TODO SR03 - Add annotations.
+    @Basic(optional = false)
     @Column(name = "name", nullable = false, unique = true, length = 45)
     protected String roleName;
     
     //TODO SR04 - Add annotations.
-    @ManyToMany(mappedBy = "user_has_role")
+    @ManyToMany(mappedBy = "roles")
     protected Set<SecurityUser> users = new HashSet<SecurityUser>();
 
     public SecurityRole() {

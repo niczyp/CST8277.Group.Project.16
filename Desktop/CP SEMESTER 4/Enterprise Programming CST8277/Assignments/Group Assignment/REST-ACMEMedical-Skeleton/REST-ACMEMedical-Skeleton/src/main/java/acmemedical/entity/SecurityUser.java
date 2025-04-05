@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,6 +23,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -34,6 +36,8 @@ import jakarta.persistence.Table;
 //TODO SU01 - Make this into JPA entity and add all the necessary annotations inside the class.
 @Entity
 @Table(name = "security_user")
+@NamedQuery(name = "SecurityUser.findByPhysician", query = "SELECT u FROM SecurityUser u WHERE u.physician.id = :physicianId")
+@NamedQuery(name = "SecurityUser.userByName", query = "SELECT u FROM SecurityUser u WHERE u.username = :param1")
 public class SecurityUser implements Serializable, Principal {
     /** Explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -45,17 +49,19 @@ public class SecurityUser implements Serializable, Principal {
     protected int id;
     
     //TODO SU03 - Add annotations.
+    @Basic(optional = false)
     @Column(name = "username", nullable = false, unique = true, length = 100)
     protected String username;
     
     //TODO SU04 - Add annotations.
+    @Basic(optional = false)
     @Column(name = "password_hash", nullable = false, unique = true, length = 256)
     protected String pwHash;
     
     //TODO SU05 - Add annotations.
     // Each security user MUST have a physician, so set optional = false and nullable = false.
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", unique = true, nullable = false)
+    @JoinColumn(name = "physician_id", unique = true, nullable = false)
     protected Physician physician;
     
     //TODO SU06 - Add annotations.
@@ -65,7 +71,6 @@ public class SecurityUser implements Serializable, Principal {
     		joinColumns = @JoinColumn(name = "user_id"),
     		inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    
     protected Set<SecurityRole> roles = new HashSet<SecurityRole>();
 
     public SecurityUser() {
