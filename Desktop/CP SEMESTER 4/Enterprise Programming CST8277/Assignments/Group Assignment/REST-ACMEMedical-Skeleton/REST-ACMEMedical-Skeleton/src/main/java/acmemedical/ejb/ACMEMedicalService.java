@@ -276,6 +276,16 @@ public class ACMEMedicalService implements Serializable {
     }
     
     @Transactional
+    public MedicalTraining deleteMedicalTraining(int id) {
+        MedicalTraining mt = em.find(MedicalTraining.class, id);
+        if (mt != null) {
+            em.remove(mt);
+            return mt;
+        }
+        return null;
+    }
+    
+    @Transactional
     public Patient persistPatient(Patient newPatient) {
         em.persist(newPatient);
         return newPatient;
