@@ -18,6 +18,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -37,7 +38,10 @@ import jakarta.persistence.Transient;
 //Hint - @NamedQuery attached to this class which uses JPQL/HQL.  SQL cannot be used with NamedQuery.
 //Hint - @NamedQuery uses the name which is defined in @Entity for JPQL, if no name is defined use class name.
 //Hint - @NamedNativeQuery can optionally be used if there is a need for SQL query.
-@NamedQuery(name = "Medicine.findAll", query = "SELECT m FROM Medicine m")
+@NamedQueries({
+    @NamedQuery(name = "Medicine.findAll", query = "SELECT m FROM Medicine m"),
+    @NamedQuery(name = "Medicine.findById", query = "SELECT m FROM Medicine m WHERE m.id = :param1")
+})
 //Hint - @AttributeOverride can override column details.  This entity uses medicine_id as its primary key name, it needs to override the name in the mapped super class.
 @AttributeOverride(name = "id", column = @Column(name = "medicine_id"))
 //Hint - PojoBase is inherited by any entity with integer as their primary key.
