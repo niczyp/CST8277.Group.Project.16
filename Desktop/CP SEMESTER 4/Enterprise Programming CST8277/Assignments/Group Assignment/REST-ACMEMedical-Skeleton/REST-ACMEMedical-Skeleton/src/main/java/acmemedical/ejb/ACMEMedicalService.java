@@ -24,6 +24,8 @@ import static acmemedical.entity.Physician.ALL_PHYSICIANS_QUERY_NAME;
 import static acmemedical.entity.MedicalSchool.ALL_MEDICAL_SCHOOLS_QUERY_NAME;
 import static acmemedical.entity.MedicalSchool.IS_DUPLICATE_QUERY_NAME;
 import static acmemedical.entity.MedicalSchool.SPECIFIC_MEDICAL_SCHOOL_QUERY_NAME;
+import static acmemedical.entity.SecurityUser.SPECIFIC_SECURITY_USER_BY_PHYSICIAN;
+import static acmemedical.entity.SecurityRole.SPECIFIC_SECURITY_ROLE;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -104,7 +106,7 @@ public class ACMEMedicalService implements Serializable {
         userForNewPhysician.setPwHash(pwHash);
         userForNewPhysician.setPhysician(newPhysician);
         /* TODO ACMECS01 - Use NamedQuery on SecurityRole to find USER_ROLE */ 
-        TypedQuery<SecurityRole> query = em.createNamedQuery("SecurityRole.findByRole", SecurityRole.class);
+        TypedQuery<SecurityRole> query = em.createNamedQuery(SPECIFIC_SECURITY_ROLE, SecurityRole.class);
         query.setParameter("roleName", USER_ROLE);
         SecurityRole userRole = query.getSingleResult();;
         userForNewPhysician.getRoles().add(userRole);
@@ -169,7 +171,7 @@ public class ACMEMedicalService implements Serializable {
             /* TODO ACMECS02 - Use NamedQuery on SecurityRole to find this related Student
                so that when we remove it, the relationship from SECURITY_USER table
                is not dangling
-            */ em.createNamedQuery("SecurityUser.findByPhysician", SecurityUser.class);
+            */ em.createNamedQuery(SPECIFIC_SECURITY_USER_BY_PHYSICIAN, SecurityUser.class);
             findUser.setParameter("physicianId", id);
             SecurityUser sUser = findUser.getSingleResult();
             em.remove(sUser);

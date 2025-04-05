@@ -36,6 +36,7 @@ import jakarta.persistence.Table;
 public class SecurityRole implements Serializable {
     /** Explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
+    public static final String SPECIFIC_SECURITY_ROLE = "SecurityRole.findByRole";
 
     //TODO SR02 - Add annotations.
     @Id

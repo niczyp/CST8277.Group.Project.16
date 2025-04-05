@@ -41,6 +41,7 @@ import jakarta.persistence.Table;
 public class SecurityUser implements Serializable, Principal {
     /** Explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
+    public static final String SPECIFIC_SECURITY_USER_BY_PHYSICIAN = "SecurityUser.findByPhysician";
 
     //TODO SU02 - Add annotations.
     @Id
