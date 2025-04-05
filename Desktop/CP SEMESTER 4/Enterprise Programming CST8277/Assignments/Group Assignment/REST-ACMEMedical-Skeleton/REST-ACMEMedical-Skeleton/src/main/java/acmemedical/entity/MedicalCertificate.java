@@ -38,10 +38,16 @@ import jakarta.persistence.Table;
 	    name = "MedicalCertificate.findById",
 	    query = "SELECT mc FROM MedicalCertificate mc WHERE mc.id = :param1"
 	)
+@NamedQuery(
+		name = "MedicalCertificate.findAll", 
+		query = "SELECT mc FROM MedicalCertificate mc"
+	)
+
 public class MedicalCertificate extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public static final String ID_CARD_QUERY_NAME = "MedicalCertificate.findById";
+	public static final String ALL_CERTIFICATES_QUERY_NAME = "MedicalCertificate.findAll";
 
 	// TODO MC03 - Add annotations for 1:1 mapping.  What should be the cascade and fetch types?
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
