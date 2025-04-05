@@ -27,7 +27,9 @@ import static acmemedical.utility.MyConstants.ADMIN_ROLE;
 import static acmemedical.utility.MyConstants.USER_ROLE;
 import jakarta.ws.rs.core.Response.Status;
 import static acmemedical.utility.MyConstants.MEDICAL_SCHOOL_RESOURCE_NAME;
-
+import static acmemedical.utility.MyConstants.RESOURCE_PATH_SCHOOL_ID_PATH;
+import static acmemedical.utility.MyConstants.SCHOOL_ID_RESOURCE_NAME;
+import static acmemedical.utility.MyConstants.MEDICAL_TRAINING_SUBRESOURCE_PATH;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -59,8 +61,9 @@ public class MedicalSchoolResource {
     
     @GET
     // TODO MSR01 - Specify the roles allowed for this method
-    @Path("/{medicalSchoolId}")
-    public Response getMedicalSchoolById(@PathParam("medicalSchoolId") int medicalSchoolId) {
+    @RolesAllowed({ADMIN_ROLE, USER_ROLE})
+    @Path(RESOURCE_PATH_SCHOOL_ID_PATH)
+    public Response getMedicalSchoolById(@PathParam(SCHOOL_ID_RESOURCE_NAME) int medicalSchoolId) {
         LOG.debug("Retrieving medical school with id = {}", medicalSchoolId);
         MedicalSchool medicalSchool = service.getMedicalSchoolById(medicalSchoolId);
         Response response = Response.ok(medicalSchool).build();
@@ -69,10 +72,11 @@ public class MedicalSchoolResource {
 
     @DELETE
     // TODO MSR02 - Specify the roles allowed for this method
-    @Path("/{medicalSchoolId}")
-    public Response deleteMedicalSchool(@PathParam("medicalSchoolId") int msId) {
+    @RolesAllowed({ADMIN_ROLE})
+    @Path(RESOURCE_PATH_SCHOOL_ID_PATH)
+    public Response deleteMedicalSchool(@PathParam(SCHOOL_ID_RESOURCE_NAME) int msId) {
         LOG.debug("Deleting medical school with id = {}", msId);
-        MedicalSchool sc = service.deleteMedicalSchool(msId);
+        MedicalSchool sc = service.deleteMedicalSchool(msId); // Here we are using sc as a local variable and also for SecurityContext (which is globally injected).Fix: Potentially rename the local variable to something more meaningful.
         Response response = Response.ok(sc).build();
         return response;
     }
@@ -94,8 +98,8 @@ public class MedicalSchoolResource {
 
     @RolesAllowed({ADMIN_ROLE})
     @POST
-    @Path("/{medicalSchoolId}/medicaltraining")
-    public Response addMedicalTrainingToMedicalSchool(@PathParam("medicalSchoolId") int msId, MedicalTraining newMedicalTraining) {
+    @Path(MEDICAL_TRAINING_SUBRESOURCE_PATH)
+    public Response addMedicalTrainingToMedicalSchool(@PathParam(SCHOOL_ID_RESOURCE_NAME) int msId, MedicalTraining newMedicalTraining) {
         LOG.debug("Adding a new MedicalTraining to medical school with id = {}", msId);
         
         MedicalSchool ms = service.getMedicalSchoolById(msId);
@@ -103,13 +107,13 @@ public class MedicalSchoolResource {
         ms.getMedicalTrainings().add(newMedicalTraining);
         service.updateMedicalSchool(msId, ms);
         
-        return Response.ok(sc).build();
+        return Response.ok(sc).build(); // Here we are returning SecurityContext (sc), which makes no sense in a REST response. Fix: Return either the new MedicalTraining, or the updated MedicalSchool.
     }
 
     @RolesAllowed({ADMIN_ROLE, USER_ROLE})
     @PUT
-    @Path("/{medicalSchoolId}")
-    public Response updateMedicalSchool(@PathParam("medicalSchoolId") int msId, MedicalSchool updatingMedicalSchool) {
+    @Path(RESOURCE_PATH_SCHOOL_ID_PATH)
+    public Response updateMedicalSchool(@PathParam(SCHOOL_ID_RESOURCE_NAME) int msId, MedicalSchool updatingMedicalSchool) {
         LOG.debug("Updating a specific medical school with id = {}", msId);
         Response response = null;
         MedicalSchool updatedMedicalSchool = service.updateMedicalSchool(msId, updatingMedicalSchool);
