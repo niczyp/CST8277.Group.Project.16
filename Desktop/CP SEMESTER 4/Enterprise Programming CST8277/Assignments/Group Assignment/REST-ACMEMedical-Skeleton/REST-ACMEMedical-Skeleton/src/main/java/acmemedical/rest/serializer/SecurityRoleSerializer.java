@@ -5,6 +5,12 @@
  * @author Teddy Yap
  * @author Shariar (Shawn) Emami
  * @author Mike Norman
+ * 
+ * Date Updated: 2025-04-06
+ * @author Zachary Bernard
+ * @author Prince Khakhriya
+ * @author Melbinbenny Thomas
+ * @author Nicholas Zypchen
  *
  */
 package acmemedical.rest.serializer;

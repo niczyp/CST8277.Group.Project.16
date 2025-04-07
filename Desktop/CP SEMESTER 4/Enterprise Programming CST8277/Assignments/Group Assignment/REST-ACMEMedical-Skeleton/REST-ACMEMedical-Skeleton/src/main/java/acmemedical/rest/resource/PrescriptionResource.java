@@ -2,7 +2,11 @@
  * File:  PrescriptionResource.java
  * Course Materials CST 8277
  *
- * @author Nicholas
+ * Date Updated: 2025-04-06
+ * @author Zachary Bernard
+ * @author Prince Khakhriya
+ * @author Melbinbenny Thomas
+ * @author Nicholas Zypchen
  */
 package acmemedical.rest.resource;
 
