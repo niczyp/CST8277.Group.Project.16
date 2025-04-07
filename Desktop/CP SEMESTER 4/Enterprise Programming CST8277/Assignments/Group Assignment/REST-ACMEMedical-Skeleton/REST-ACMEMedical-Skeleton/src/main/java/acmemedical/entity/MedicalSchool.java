@@ -18,6 +18,7 @@ import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Inheritance;
@@ -40,6 +41,7 @@ import jakarta.persistence.Table;
 @Table(name = "medical_school")
 @AttributeOverride(name = "id", column = @Column(name = "school_id"))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = PublicSchool.class, name = "public"), @JsonSubTypes.Type(value = PrivateSchool.class, name = "private")})
 @NamedQuery(

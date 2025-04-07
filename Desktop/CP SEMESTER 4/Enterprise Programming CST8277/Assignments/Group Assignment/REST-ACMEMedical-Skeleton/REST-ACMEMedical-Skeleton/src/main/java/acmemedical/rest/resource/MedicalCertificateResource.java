@@ -11,6 +11,8 @@ import static acmemedical.utility.MyConstants.USER_ROLE;
 import static acmemedical.utility.MyConstants.MEDICAL_CERTIFICATE_RESOURCE_NAME;
 import static acmemedical.utility.MyConstants.RESOURCE_PATH_ID_ELEMENT;
 import static acmemedical.utility.MyConstants.RESOURCE_PATH_ID_PATH;
+import static acmemedical.entity.MedicalCertificate.ALL_CERTIFICATES_QUERY_NAME;
+import static acmemedical.entity.MedicalCertificate.ID_CARD_QUERY_NAME;
 
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class MedicalCertificateResource {
     @RolesAllowed({ADMIN_ROLE})
     public Response getAllCertificates() {
         LOG.debug("Getting all medical certificates...");
-        List<MedicalCertificate> certs = service.getAll(MedicalCertificate.class, "MedicalCertificate.findAll");
+        List<MedicalCertificate> certs = service.getAll(MedicalCertificate.class, ALL_CERTIFICATES_QUERY_NAME);
         return Response.ok(certs).build();
     }
 
@@ -48,7 +50,7 @@ public class MedicalCertificateResource {
     @Path(RESOURCE_PATH_ID_PATH)
     public Response getCertificateById(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
         LOG.debug("Getting certificate by id = {}", id);
-        MedicalCertificate cert = service.getById(MedicalCertificate.class, "MedicalCertificate.findById", id);
+        MedicalCertificate cert = service.getById(MedicalCertificate.class, ID_CARD_QUERY_NAME, id);
         if (cert == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

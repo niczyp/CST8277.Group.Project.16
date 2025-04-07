@@ -42,7 +42,8 @@ public class SecurityUser implements Serializable, Principal {
     /** Explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
     public static final String SPECIFIC_SECURITY_USER_BY_PHYSICIAN = "SecurityUser.findByPhysician";
-
+    public static final String SPECIFIC_SECURITY_USER_BY_NAME = "SecurityUser.userByName";
+    
     //TODO SU02 - Add annotations.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

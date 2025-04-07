@@ -44,6 +44,7 @@ public class PatientResource {
 
     @EJB
     protected ACMEMedicalService service;
+   
 
     @GET
     @RolesAllowed({ADMIN_ROLE})
@@ -54,7 +55,7 @@ public class PatientResource {
     }
 
     @GET
-    @RolesAllowed({ADMIN_ROLE, USER_ROLE})
+    @RolesAllowed({ADMIN_ROLE})
     @Path(RESOURCE_PATH_ID_PATH) // /{id}
     public Response getPatientById(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
         LOG.debug("Getting patient by id = {}", id);

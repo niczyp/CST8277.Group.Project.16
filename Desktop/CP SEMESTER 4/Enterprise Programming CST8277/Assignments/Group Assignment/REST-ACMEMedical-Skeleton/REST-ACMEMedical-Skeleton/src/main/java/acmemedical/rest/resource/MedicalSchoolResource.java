@@ -77,8 +77,12 @@ public class MedicalSchoolResource {
     public Response deleteMedicalSchool(@PathParam(SCHOOL_ID_RESOURCE_NAME) int msId) {
         LOG.debug("Deleting medical school with id = {}", msId);
         MedicalSchool sc = service.deleteMedicalSchool(msId); // Here we are using sc as a local variable and also for SecurityContext (which is globally injected).Fix: Potentially rename the local variable to something more meaningful.
-        Response response = Response.ok(sc).build();
-        return response;
+        if (sc != null) {
+            return Response.noContent().build(); // 204
+        }
+
+        // If nothing was deleted (not found), return 404 Not Found
+        return Response.status(Response.Status.NOT_FOUND).build(); // 404
     }
     
     // Please try to understand and test the below methods:

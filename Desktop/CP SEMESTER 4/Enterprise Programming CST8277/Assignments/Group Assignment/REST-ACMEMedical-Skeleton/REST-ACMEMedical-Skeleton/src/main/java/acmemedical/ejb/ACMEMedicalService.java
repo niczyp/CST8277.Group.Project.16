@@ -85,6 +85,12 @@ public class ACMEMedicalService implements Serializable {
         return em.find(Physician.class, id);
     }
 
+    public SecurityUser getSecurityUserByUsername(String username) {
+        return em.createNamedQuery(SecurityUser.SPECIFIC_SECURITY_USER_BY_NAME, SecurityUser.class)
+                 .setParameter("username", username)
+                 .getSingleResult();
+    }
+    
     @Transactional
     public Physician persistPhysician(Physician newPhysician) {
         em.persist(newPhysician);
@@ -206,16 +212,17 @@ public class ACMEMedicalService implements Serializable {
 
     @Transactional
     public MedicalSchool deleteMedicalSchool(int id) {
-        //MedicalSchool ms = getMedicalSchoolById(id);
-    	MedicalSchool ms = getById(MedicalSchool.class, MedicalSchool.SPECIFIC_MEDICAL_SCHOOL_QUERY_NAME, id);
+        MedicalSchool ms = em.find(MedicalSchool.class, id);
         if (ms != null) {
             Set<MedicalTraining> medicalTrainings = ms.getMedicalTrainings();
             List<MedicalTraining> list = new LinkedList<>();
             medicalTrainings.forEach(list::add);
             list.forEach(mt -> {
                 if (mt.getCertificate() != null) {
-                    MedicalCertificate mc = getById(MedicalCertificate.class, MedicalCertificate.ID_CARD_QUERY_NAME, mt.getCertificate().getId());
-                    mc.setMedicalTraining(null);
+                    MedicalCertificate mc = em.find(MedicalCertificate.class, mt.getCertificate().getId());
+                    if (mc != null) {
+                        mc.setMedicalTraining(null);
+                    }
                 }
                 mt.setCertificate(null);
                 em.merge(mt);

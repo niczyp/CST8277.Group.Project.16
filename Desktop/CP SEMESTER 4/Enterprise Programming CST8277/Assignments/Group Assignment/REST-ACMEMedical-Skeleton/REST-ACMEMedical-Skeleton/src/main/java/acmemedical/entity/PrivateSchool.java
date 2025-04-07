@@ -15,7 +15,7 @@ import jakarta.persistence.Entity;
 //TODO PRSC02 - Is a JSON annotation needed here?
 // No JSON annotation added, unless required for REST serialization.
 @Entity
-@DiscriminatorValue("0")
+@DiscriminatorValue("private")
 public class PrivateSchool extends MedicalSchool implements Serializable {
 	private static final long serialVersionUID = 1L;
 

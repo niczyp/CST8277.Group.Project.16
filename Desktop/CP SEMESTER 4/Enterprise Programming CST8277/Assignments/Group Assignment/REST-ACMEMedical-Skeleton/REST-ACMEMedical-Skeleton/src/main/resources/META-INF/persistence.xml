@@ -8,7 +8,7 @@
     <jta-data-source>java:app/jdbc/acmemedical</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-        <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+        <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
         <property name="jakarta.persistence.schema-generation.create-source" value="script" />
         <property name="jakarta.persistence.schema-generation.create-script-source" value="META-INF/sql/acmemedical-create.sql" />
         <property name="jakarta.persistence.schema-generation.drop-source" value="script" />
