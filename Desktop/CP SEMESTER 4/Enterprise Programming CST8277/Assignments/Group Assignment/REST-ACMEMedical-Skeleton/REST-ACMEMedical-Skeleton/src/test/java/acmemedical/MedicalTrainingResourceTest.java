@@ -1,5 +1,10 @@
 package acmemedical;
-
+/**
+ * File: MedicalTrainingResourceTest.java
+ * Author(s): Prince Khakhriya
+ * Date Modified: 2025-04-05
+ * Due Date: 2025-04-06
+ */
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static jakarta.ws.rs.core.Response.Status.*;
